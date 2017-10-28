@@ -1,0 +1,56 @@
+.button-style {
+    background-color: blue;
+    width: 100px;
+    height: 60px;
+    color: rgb(255, 242, 126);
+}
+
+.hidden {
+    display: none;
+}
+
+.padding-bottom {
+    padding-bottom: 30px;
+}
+
+h1 {
+    font-size: 100px;
+    color: rgb(255, 240, 172);
+    text-align: center;
+    background-color: rgb(124, 159, 255);
+}
+
+h2 {
+    font-size: 30px;
+    color: rgb(124, 159, 255);
+    text-align: center;
+    border-top-color: rgb(124, 159, 255);
+    border-bottom-color: rgb(124, 159, 255);
+}
+
+h3 {
+    background-color: rgb(124, 159, 255);
+    height: 10px;
+
+}
+
+p {
+    font-size: 18px;
+    text-align: center;
+}
+
+body {
+    background-color: rgb(255, 240, 172);
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+img {
+    width: 1150px;
+    height: auto;
+    margin: 20px;
+    text-align: center;
+    border-style: solid;
+    border-width: 10px;
+    border-color: rgb(124, 159, 255)
+}
