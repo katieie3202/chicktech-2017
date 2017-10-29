@@ -217,5 +217,23 @@
         <h4>Collect as many bones as possible before time runs out, but don't hit the anvils!</h4>
 </div>
 </div>
+<div>
+    <button type="button" class="btn btn-primary btn-lg"
+    onclick="onClick()">
+        Back to Home
+    </button>
+</div>
+
+<script type="text/javascript">
+
+    //this opens a new window when you click the button with our game html! Since an entire URL is not specified,
+    //it opens relative to your current path - if you are on www.mywebsite.com/index.html, this would go to
+    //www.mywebsite.com/game.html
+    var onClick = function() {
+      window.open('/index.html');
+    };
+
+
+</script>
 </body>
 </html>
