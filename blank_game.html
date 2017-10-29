@@ -18,7 +18,7 @@
     var score = 0;
         var scoreText;
         var timeUpText = '';
-        var gameTime = 120;
+        var gameTime = 90;
 
     //These three functions are required for phaser!
     //Preload loads everything your game needs - sprites, images, etc
@@ -74,7 +74,7 @@
         anvils = game.add.group();
         anvils.enableBody = true;
 
-        timeText = game.add.text(600, 16, 'Time: ' + gameTime, {fontSize: '20px', fill: '#000'});
+        timeText = game.add.text(600, 16, 'Time: ' + gameTime, {fontSize: '20px', fill: '#ffffff'});
 
         timer = game.time.create();
         timer.start();
@@ -83,12 +83,12 @@
 
         //create the timer
         timer = game.time.create(false);
-        introText = game.add.text(game.world.centerX, 400, '- Click to Start -', { font: "40px Times New Roman", fill: "#ffffff", align: "center" });
+        introText = game.add.text(game.world.centerX, 400, '- Click to Start -', { font: "40px arial", fill: "#ffffff", align: "center" });
         introText.anchor.setTo(0.5, 0.5);
         game.input.onDown.add(startGame, this);
     
 
-    scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '20px', fill: '#000' });
+    scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '20px', fill: '#ffffff' });
     }
 
 
@@ -199,7 +199,7 @@
             element.kill();
         });
         //display time up message
-        timeUpText = game.add.text(350, 250, 'Time\'s up!', { fontSize: '32px', fill: '#000' });
+        timeUpText = game.add.text(350, 250, 'Time\'s up!', { fontSize: '32px', fill: '#ffffff', align: "center" });
         introText = game.add.text(game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "#ffffff", align: "center" });
         introText.anchor.setTo(0.5, 0.5);
     }
