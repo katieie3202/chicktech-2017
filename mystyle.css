@@ -34,6 +34,12 @@ h3 {
 
 }
 
+h4 {
+    border-style: solid;
+    border-width: 8px;
+    border-color: rgb(124, 159, 255)
+}
+
 p {
     font-size: 18px;
     text-align: center;
@@ -53,4 +59,8 @@ img {
     border-style: solid;
     border-width: 10px;
     border-color: rgb(124, 159, 255)
+}
+
+button {
+    background-color: rgb(124, 159, 255)
 }

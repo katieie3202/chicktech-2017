@@ -30,7 +30,7 @@
 </div>
 <div class="row">
     <h2>About me</h2>
-    I am a 10th grader at Wilson High School. My favorite hobbies are reading, writing, playing/listening to music, and wasting time on the internet.
+    I am a 10th grader at Wilson High School. My favorite hobbies are reading, writing, playing/composing/listening to music, and wasting time on the internet.
 </div>
 <div class="row">
     <h3></h3>
@@ -49,7 +49,7 @@
 <div class="row">
         <div class="col-md-12">
              <div><img src="https://fthmb.tqn.com/-zXPbIamERScYBxEP7tLs0k5Vs8=/1280x854/filters:fill(auto,1)/border-collie-88802317-resized-56a26ac63df78cf77275629d.jpg" /></div>
-            <p>I love animals, and I currently have 4 pets: 2 dogs, and 2 cats.</p>
+            <p>I love animals, and I currently have 4 pets: 2 dogs and 2 cats.</p>
         </div>
 </div>
 <div class="row">
@@ -77,13 +77,20 @@
 <!--END HTML FOR ABOUT ME PAGE-->
 
 <!--Put any javascript here-->
+<div>
+    <button type="button" class="btn btn-primary btn-lg"
+    onclick="onClick()">
+        Shall we play a game?
+    </button>
+</div>
+
 <script type="text/javascript">
 
     //this opens a new window when you click the button with our game html! Since an entire URL is not specified,
     //it opens relative to your current path - if you are on www.mywebsite.com/index.html, this would go to
     //www.mywebsite.com/game.html
     var onClick = function() {
-      window.open('/game.html');
+      window.open('/blank_game.html');
     };
 
 

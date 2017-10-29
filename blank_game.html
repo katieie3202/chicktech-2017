@@ -15,12 +15,19 @@
 
     var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
+    var score = 0;
+        var scoreText;
+        var timeUpText = '';
+        var gameTime = 120;
+
     //These three functions are required for phaser!
     //Preload loads everything your game needs - sprites, images, etc
     function preload() {
         game.load.image('sky', 'assets/sunset2.png');
         game.load.image('ground', 'assets/grass5.jpg');
-        game.load.spritesheet('hp', 'assets/dogsprite2.png', 39, 38);
+        game.load.image('bones', 'assets/bone.png');
+        game.load.image('anvils', 'assets/anvil.png');
+        game.load.spritesheet('dog', 'assets/dogsprite2.png', 39, 38);
 
     }
 
@@ -47,7 +54,7 @@
 
         //add player
         //the first 2 arguments are x and y, then the last is the key of your image
-        player = game.add.sprite(32, game.world.height - 150, 'hp');
+        player = game.add.sprite(380, game.world.height - 150, 'dog');
 
         //enable physics on player
         game.physics.arcade.enable(player);
@@ -57,12 +64,34 @@
 
         player.animations.add('left', [4, 5, 6, 7], 10, true);
         player.animations.add('right', [8, 9, 10, 11], 10, true);
+        
 
 
         //  Our controls.
         cursors = game.input.keyboard.createCursorKeys();
+        bones = game.add.group();
+        bones.enableBody = true;
+        anvils = game.add.group();
+        anvils.enableBody = true;
 
+        timeText = game.add.text(600, 16, 'Time: ' + gameTime, {fontSize: '20px', fill: '#000'});
+
+        timer = game.time.create();
+        timer.start();
+
+        
+
+        //create the timer
+        timer = game.time.create(false);
+        introText = game.add.text(game.world.centerX, 400, '- Click to Start -', { font: "40px Times New Roman", fill: "#ffffff", align: "center" });
+        introText.anchor.setTo(0.5, 0.5);
+        game.input.onDown.add(startGame, this);
+    
+
+    scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '20px', fill: '#000' });
     }
+
+
 
     //Update is continously called while the game is being played - add things like
     //tracking arrow keys, etc here!
@@ -78,7 +107,7 @@
         if (cursors.left.isDown)
         {
             //  Move to the left
-            player.body.velocity.x = -200;
+            player.body.velocity.x = -400;
 
             player.animations.play('left');
         }
@@ -86,7 +115,7 @@
         else if (cursors.right.isDown)
         {
             //  Move to the right
-            player.body.velocity.x = 200;
+            player.body.velocity.x = 400;
 
             player.animations.play('right');
         }
@@ -98,13 +127,95 @@
 
             player.frame = 0;
         }
+        //game.physics.arcade.collide(bones, platforms);
+        game.physics.arcade.overlap(player, bones, collectBone, null, this);
+        game.physics.arcade.overlap(player, anvils, hitAnvil, null, this);
+    }
+    //add any extra functions you need here! 
+    function collectBone (player, bone) {
 
+        // Removes the bone from the screen
+        bone.kill();
+
+        //  Add and update the score
+        score += 10;
+        scoreText.text = 'Score: ' + score;
+    }
+    function createBone() {
+        var xLocation = Math.random() * 800;
+        var bone = bones.create(xLocation, 100, 'bones');
+        bone.body.gravity.y = 10;
+    }
+    function createAnvil() {
+        var xLocationA = Math.random() * 800;
+        var anvil = anvils.create(xLocationA, 100, 'anvils');
+        anvil.body.gravity.y = 10;
+    }
+    function hitAnvil (player, anvil) {
+        anvil.kill();
+        score -= 10;
+        scoreText.text = 'Score: ' + score;
+    }
+    // function missBone (ground, bone) {
+    //     bone.kill();
+    //     score -= 5;
+    //     scoreText.text = 'Score: ' + score;
+    //}
+    function startGame(){
+        //set countdown to our global "game time" variable
+        countdown = gameTime;
+        timeText.text = 'Time: ' + countdown;
+        
+        //initialize score to 0 and update score text
+        score = 0;
+        scoreText.text = 'Score: ' + score;
+        //if we are showing time up text, stop showing
+        if(timeUpText) {
+            timeUpText.visible = false;
+        }
+        //don't show intro text
+        introText.visible = false;
+        //create new snitches in a loop, every 400 milliseconds
+        timer.loop(400, createBone);
+        timer.loop(2000, createAnvil);
+        //create a loop to update the countdown text, update every second and call updateCountdown
+        countdownTimer = timer.loop(Phaser.Timer.SECOND, updateCountdown);
+        //add the timer event of game time * 1000 (since it is in milliseconds) and call timeUp when its done
+        timer.add(gameTime*1000, timeUp, this);
+        //start the timer event
+        timer.start();
+        timeText.visible = true;
+        scoreText.visible = true;
+    }
+    //handle time up event
+    function timeUp() {
+        //stop the loops
+        timer.stop();
+        //get rid of all the active snitches
+        bones.forEach(function(element) {
+            element.kill();
+        });
+        anvils.forEach(function(element) {
+            element.kill();
+        });
+        //display time up message
+        timeUpText = game.add.text(350, 250, 'Time\'s up!', { fontSize: '32px', fill: '#000' });
+        introText = game.add.text(game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "#ffffff", align: "center" });
+        introText.anchor.setTo(0.5, 0.5);
+    }
+    //update the timer countdown
+    function updateCountdown() {
+        //decrease the countdown value
+        countdown = countdown - 1;
+        //update the display text
+        timeText.text = 'Time: ' + countdown;
     }
 
-    //add any extra functions you need here! 
-
-
 </script>
-<div>Catch the bones, avoid the anvils.</div>
+<div class ="row">
+    <div class = "col-md-6">
+        <h4>Collect as many bones as possible before time runs out, but don't hit the anvils!</h4>
+</div>
+</div>
 </body>
 </html>
